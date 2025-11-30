@@ -2,9 +2,9 @@ name: CI Checks
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   quality-check:
@@ -18,8 +18,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 建议使用 LTS 版本
-          cache: 'npm'       # 自动开启 npm 依赖缓存，提升速度
+          node-version: "20" # 建议使用 LTS 版本
+          cache: "npm" # 自动开启 npm 依赖缓存，提升速度
 
       - name: Install Dependencies
         # 使用 npm ci 而不是 install，确保完全按照 package-lock.json 安装
@@ -29,7 +29,7 @@ jobs:
       - name: Lint Commit Messages
         uses: wagoid/commitlint-github-action@v6
         with:
-          configFile: commitlint.config.js # 如果你的配置文件叫这个名字
+          configFile: commitlint.config.cjs # 如果你的配置文件叫这个名字
           failOnWarnings: false
           helpURL: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
 
