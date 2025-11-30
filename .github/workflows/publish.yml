@@ -3,7 +3,7 @@ name: Publish Library
 on:
   push:
     tags:
-      - 'v*' # 只有打 tag (如 v1.0.0) 时触发
+      - "v*" # 只有打 tag (如 v1.0.0) 时触发
 
 jobs:
   publish:
@@ -15,9 +15,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org' # 或者 'https://npm.pkg.github.com'
-          cache: 'npm'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org" # 或者 'https://npm.pkg.github.com'
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm ci
