@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*" # 只有打 tag (如 v1.0.0) 时触发
+  workflow_dispatch:
 
 jobs:
   publish:
