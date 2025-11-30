@@ -3,8 +3,8 @@
  * 参考配置 https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/LICENSE
  */
 
-import { NgModule } from '@angular/core';
-import { DemoComponentLibComponent } from './demo-component-lib.component';
+import { NgModule } from "@angular/core";
+import { DemoComponentLibComponent } from "./demo-component-lib.component";
 
 @NgModule({
   declarations: [DemoComponentLibComponent],

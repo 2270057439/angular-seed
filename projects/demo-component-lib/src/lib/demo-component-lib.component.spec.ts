@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DemoComponentLibComponent } from './demo-component-lib.component';
+import { DemoComponentLibComponent } from "./demo-component-lib.component";
 
-describe('DemoComponentLibComponent', () => {
+describe("DemoComponentLibComponent", () => {
   let component: DemoComponentLibComponent;
   let fixture: ComponentFixture<DemoComponentLibComponent>;
 
@@ -15,7 +15,7 @@ describe('DemoComponentLibComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
