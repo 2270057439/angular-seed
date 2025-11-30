@@ -1,0 +1,53 @@
+name: CI Checks
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 必须设为0，否则 commitlint 无法读取历史 commit
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 建议使用 LTS 版本
+          cache: 'npm'       # 自动开启 npm 依赖缓存，提升速度
+
+      - name: Install Dependencies
+        # 使用 npm ci 而不是 install，确保完全按照 package-lock.json 安装
+        run: npm ci
+
+      # 1. 检查 Commit 信息规范 (基于你配置的 commitlint)
+      - name: Lint Commit Messages
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: commitlint.config.js # 如果你的配置文件叫这个名字
+          failOnWarnings: false
+          helpURL: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
+      # 2. 代码风格检查 (ESLint)
+      - name: Lint Code (ESLint)
+        run: npm run lint
+        # 确保你的 package.json 里有 "lint": "ng lint" 或 "eslint ."
+
+      # 3. 格式检查 (Prettier)
+      - name: Check Formatting (Prettier)
+        run: npx prettier --check .
+        # 如果有未格式化的代码，这里会报错
+
+      # 4. 单元测试 (需配置 Headless Chrome)
+      - name: Run Unit Tests
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
+        # 注意：Angular 默认 karma.conf.js 需要支持 ChromeHeadless
+
+      # 5. 构建检查 (确保 ng-packagr 能打包成功)
+      - name: Build Library
+        run: npm run build

@@ -1,0 +1,36 @@
+name: Publish Library
+
+on:
+  push:
+    tags:
+      - 'v*' # 只有打 tag (如 v1.0.0) 时触发
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org' # 或者 'https://npm.pkg.github.com'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # 再次运行构建，确保发布的是最新代码
+      - name: Build Library
+        run: npm run build
+        # 假设 build 生成的目录是 dist/my-lib
+
+      # 发布流程
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true # GitHub 会自动根据 PR 标题生成日志
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub 自带的，不用你设
