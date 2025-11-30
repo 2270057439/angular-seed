@@ -29,7 +29,7 @@ jobs:
 
       # 发布流程
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true # GitHub 会自动根据 PR 标题生成日志
         env:
