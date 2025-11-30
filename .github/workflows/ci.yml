@@ -35,7 +35,7 @@ jobs:
 
       # 2. 代码风格检查 (ESLint)
       - name: Lint Code (ESLint)
-        run: npm run lint
+        run: npx lint-staged
         # 确保你的 package.json 里有 "lint": "ng lint" 或 "eslint ."
 
       # 3. 格式检查 (Prettier)
